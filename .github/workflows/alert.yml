@@ -1,26 +1,31 @@
-name: Ticket Alert
+name: Check ticket
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'
   workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
 
 jobs:
   check-ticket:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Show files
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Files in repository:"
+          ls -la
+          echo "All files:"
+          find . -maxdepth 3 -type f
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
-
-      - name: Install dependencies
-        run: |
-          pip install requests
+          python-version: "3.x"
 
       - name: Run alert
-        run: python alert.py
+        run: python ./alert.py
