@@ -29,4 +29,4 @@ jobs:
           python-version: "3.x"
 
       - name: Run alert
-        run: python alert.py
+        run: python Alert.py
