@@ -21,7 +21,7 @@ jobs:
           echo "Files:"
           ls -la
           echo "Alert file:"
-          ls -la alert.py
+          ls -la Alert.py
 
       - name: Set up Python
         uses: actions/setup-python@v5
