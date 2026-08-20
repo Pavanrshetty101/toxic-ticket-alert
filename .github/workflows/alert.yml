@@ -2,8 +2,7 @@ name: Check ticket
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "*/5 * * * *"
+  push:
 
 jobs:
   check-ticket:
@@ -13,14 +12,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Show files
+      - name: Check repository files
         run: |
-          echo "Current directory:"
-          pwd
-          echo "Files in repository:"
+          echo "Branch:"
+          git branch --show-current
+          echo "Commit:"
+          git rev-parse HEAD
+          echo "Files:"
           ls -la
-          echo "All files:"
-          find . -maxdepth 3 -type f
+          echo "Alert file:"
+          ls -la alert.py
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -28,4 +29,4 @@ jobs:
           python-version: "3.x"
 
       - name: Run alert
-        run: python ./alert.py
+        run: python alert.py
